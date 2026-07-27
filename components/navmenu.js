@@ -2,11 +2,11 @@ import Link from 'next/link'
 
 const NavMenu = () => {
   const pages = [
-    { link: '/#capabilities', text: 'Capabilities' },
+    { link: '/pages/1_Motion_Capture', text: 'Motion Capture' },
     { link: '/#facility', text: 'Facility' },
     { link: '/#research', text: 'Research & Work' },
     { link: '/pages/4_Student_Work', text: 'Student Work' },
-    { link: '/#collaborate', text: 'Collaborate' },
+    { link: '/pages/5_Contact_Us', text: 'Contact' },
   ]
 
   return (
