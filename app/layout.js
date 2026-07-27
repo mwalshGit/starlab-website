@@ -10,8 +10,8 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 
 export const metadata = {
-  title: "Rellis Starlab",
-  description: "Rellis Starlab: Virtual Production, XR, and Autonomous Vehicles at the TAMU Rellis Campus",
+  title: "Starlab | Texas A&M University at RELLIS",
+  description: "Starlab is a motion capture and 3D digitization lab supporting research, teaching, and creative work at Texas A&M University.",
 };
 
 export default function RootLayout({ children }) {
