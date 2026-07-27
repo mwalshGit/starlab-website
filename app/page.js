@@ -18,8 +18,8 @@ export default function Home() {
           <h1 id="hero-title">Capture the real.<br /><em>Build the possible.</em></h1>
           <p className="hero-intro">Starlab is a motion capture and 3D digitization lab where performance, places, and physical systems become usable digital experiences.</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#capabilities">Explore the lab</a>
-            <a className="button button-quiet" href="#collaborate">Work with us <span aria-hidden="true">↗</span></a>
+            <Link className="button button-primary" href="/pages/1_Motion_Capture">Explore motion capture <span aria-hidden="true">→</span></Link>
+            <Link className="button button-quiet" href="/pages/5_Contact_Us">Work with us <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
         <div className="hero-footnote">Motion capture · 3D digitization · Digital twins · Real-time visualization</div>
@@ -61,7 +61,7 @@ export default function Home() {
           <h2>Space to move, build, test, and make.</h2>
           <p>At the center of Starlab is a 1,600-square-foot performance-capture stage with a 44-camera Vicon system, complemented by modular OptiTrack systems, XR hardware, and 3D scanning tools.</p>
           <p>It is a working lab, not just a showcase: a place where raw capture becomes useful material for research, training, simulation, and storytelling.</p>
-          <Link className="text-link" href="/pages/1_Motion_Capture">Learn about motion capture <span aria-hidden="true">→</span></Link>
+          <Link className="button button-outline-gold" href="/pages/1_Motion_Capture">Explore the motion-capture stage <span aria-hidden="true">→</span></Link>
         </div>
       </section>
 
