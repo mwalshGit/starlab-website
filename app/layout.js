@@ -11,7 +11,7 @@ import Footer from "@/components/footer"
 
 export const metadata = {
   title: "Starlab | Texas A&M University at RELLIS",
-  description: "Starlab is a motion capture and 3D digitization lab supporting research, teaching, and creative work at Texas A&M University.",
+  description: "Starlab is a motion capture and 3D digitization lab at Texas A&M University, supporting research, teaching, and creative work.",
 };
 
 export default function RootLayout({ children }) {
