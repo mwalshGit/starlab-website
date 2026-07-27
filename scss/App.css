@@ -1008,6 +1008,12 @@ button {
   color: white !important;
 }
 
+.button-outline-gold {
+  color: #d7b56d !important;
+  border-color: #d7b56d;
+  margin-top: 0.75rem;
+}
+
 .hero-footnote {
   position: absolute;
   bottom: 1.5rem;
