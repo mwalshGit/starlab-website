@@ -2,75 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Priests Gaussian Splat Test</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaussian Splat Diagnostic</title>
+  <style>
+    html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#111; }
+    canvas { display:block; width:100%; height:100%; }
+    #status { position:fixed; z-index:10; top:12px; left:12px; padding:8px 10px; background:rgba(0,0,0,.7); color:white; border-radius:6px; font:14px Arial,sans-serif; }
+  </style>
   <script type="importmap">
   {
     "imports": {
-      "playcanvas": "https://cdn.jsdelivr.net/npm/playcanvas@latest/build/playcanvas.mjs",
-      "@playcanvas/web-components": "https://cdn.jsdelivr.net/npm/@playcanvas/web-components@latest/dist/pwc.min.mjs"
+      "playcanvas": "https://cdn.jsdelivr.net/npm/playcanvas/+esm"
     }
   }
   </script>
-
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@playcanvas/web-components@latest/dist/pwc.min.mjs"></script>
-
-  <style>
-    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #111; }
-    pc-app { width: 100%; height: 100vh; height: 100dvh; display: block; }
-    .label, .status {
-      position: fixed;
-      left: 12px;
-      z-index: 10;
-      color: white;
-      background: rgba(0,0,0,.65);
-      padding: 8px 10px;
-      border-radius: 6px;
-      font: 14px/1.2 Arial, sans-serif;
-    }
-    .label { top: 12px; }
-    .status { top: 52px; max-width: 520px; }
-  </style>
 </head>
 <body>
-  <div class="label">Priests Gaussian Splat Test</div>
-  <div class="status" id="status">Checking SOG…</div>
+  <div id="status">Loading PlayCanvas test…</div>
+  <script type="module">
+    import { Application, Asset, AssetListLoader, Entity, FILLMODE_FILL_WINDOW, RESOLUTION_AUTO } from 'playcanvas';
 
-  <pc-app antialias="false" max-pixel-ratio="1">
-    <pc-asset src="https://cdn.jsdelivr.net/npm/playcanvas/scripts/esm/camera-controls.mjs"></pc-asset>
-    <pc-asset id="priests" src="/splat-test/priests_deg0.sog"></pc-asset>
+    const status = document.getElementById('status');
+    const canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
 
-    <pc-scene>
-      <pc-entity position="0 0 9">
-        <pc-camera></pc-camera>
-        <pc-script>
-          <pc-script-instance name="cameraControls"></pc-script-instance>
-        </pc-script>
-      </pc-entity>
+    const app = new Application(canvas, { graphicsDeviceOptions: { antialias: false } });
+    app.setCanvasFillMode(FILLMODE_FILL_WINDOW);
+    app.setCanvasResolution(RESOLUTION_AUTO);
+    app.start();
+    window.addEventListener('resize', () => app.resizeCanvas());
 
-      <pc-entity position="-1.297 3.705 1.689" scale="1 1 1">
-        <pc-gsplat asset="priests"></pc-gsplat>
-      </pc-entity>
-    </pc-scene>
-  </pc-app>
+    const cameraScript = new Asset('camera-controls', 'script', {
+      url: 'https://cdn.jsdelivr.net/npm/playcanvas/scripts/esm/camera-controls.mjs'
+    });
+    const toy = new Asset('toy', 'gsplat', {
+      url: 'https://developer.playcanvas.com/assets/toy-cat.sog'
+    });
+    const priests = new Asset('priests', 'gsplat', {
+      url: '/splat-test/priests_deg0.sog'
+    });
 
-  <script>
-    (async () => {
-      const el = document.getElementById('status');
-      const url = '/splat-test/priests_deg0.sog';
-      try {
-        const r = await fetch(url, { cache: 'no-store' });
-        if (!r.ok) {
-          el.textContent = `SOG fetch failed: HTTP ${r.status} ${r.statusText}`;
-          return;
-        }
-        const b = await r.blob();
-        el.textContent = `SOG fetched OK: ${(b.size / 1024 / 1024).toFixed(2)} MB | centered for test`;
-      } catch (err) {
-        el.textContent = `SOG fetch error: ${err.message}`;
-      }
-    })();
+    const assets = [cameraScript, toy, priests];
+    const loader = new AssetListLoader(assets, app.assets);
+
+    loader.load(() => {
+      status.textContent = 'Loaded: PlayCanvas toy + priests SOG';
+
+      const camera = new Entity('Camera');
+      camera.setPosition(0, 0, 4.5);
+      camera.addComponent('camera', { clearColor: [0.72, 0.72, 0.72, 1] });
+      camera.addComponent('script');
+      camera.script.create('cameraControls');
+      app.root.addChild(camera);
+
+      const cat = new Entity('Toy Cat');
+      cat.setPosition(-1.0, -0.7, 0);
+      cat.setEulerAngles(0, 0, 180);
+      cat.addComponent('gsplat', { asset: toy });
+      app.root.addChild(cat);
+
+      const p = new Entity('Priests');
+      p.setPosition(1.0, 0, 0);
+      p.addComponent('gsplat', { asset: priests });
+      app.root.addChild(p);
+    }, (err) => {
+      status.textContent = 'LOAD ERROR: ' + String(err);
+      console.error(err);
+    });
   </script>
 </body>
 </html>
