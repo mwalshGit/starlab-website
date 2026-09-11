@@ -42,14 +42,14 @@
     <pc-asset id="priests" src="/splat-test/priests_deg0.sog"></pc-asset>
 
     <pc-scene>
-      <pc-entity position="0 0 1.5">
+      <pc-entity position="0 0 9">
         <pc-camera></pc-camera>
         <pc-script>
           <pc-script-instance name="cameraControls"></pc-script-instance>
         </pc-script>
       </pc-entity>
 
-      <pc-entity position="0 0 0" scale="100 100 100">
+      <pc-entity position="-1.297 3.705 1.689" scale="1 1 1">
         <pc-gsplat asset="priests"></pc-gsplat>
       </pc-entity>
     </pc-scene>
@@ -66,7 +66,7 @@
           return;
         }
         const b = await r.blob();
-        el.textContent = `SOG fetched OK: ${(b.size / 1024 / 1024).toFixed(2)} MB | ${b.type || 'unknown MIME'}`;
+        el.textContent = `SOG fetched OK: ${(b.size / 1024 / 1024).toFixed(2)} MB | centered for test`;
       } catch (err) {
         el.textContent = `SOG fetch error: ${err.message}`;
       }
