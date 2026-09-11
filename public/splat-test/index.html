@@ -37,17 +37,17 @@
 
   <pc-app antialias="false" max-pixel-ratio="1">
     <pc-asset src="https://cdn.jsdelivr.net/npm/playcanvas/scripts/esm/camera-controls.mjs"></pc-asset>
-    <pc-asset id="priests" src="./priests_deg0.sog"></pc-asset>
+    <pc-asset id="priests" src="/splat-test/priests_deg0.sog"></pc-asset>
 
     <pc-scene>
-      <pc-entity position="0 0 2">
+      <pc-entity position="0 0 2.5">
         <pc-camera></pc-camera>
         <pc-script>
           <pc-script-instance name="cameraControls"></pc-script-instance>
         </pc-script>
       </pc-entity>
 
-      <pc-entity position="0 0 0" scale="8 8 8">
+      <pc-entity position="0 0 0" scale="1 1 1">
         <pc-gsplat asset="priests"></pc-gsplat>
       </pc-entity>
     </pc-scene>
